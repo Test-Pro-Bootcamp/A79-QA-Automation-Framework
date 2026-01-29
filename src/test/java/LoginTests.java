@@ -18,8 +18,8 @@ public class LoginTests extends BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         // TODO (for students): Review the configuration as part of HW15
-        
-        String url = "httpps://qa.koel.app/";
+       
+        String url = "https://qa.koel.app/"; // Fixed: removed extra 'p' from https
         driver.get(url);
         Assert.assertEquals(driver.getCurrentUrl(), url);
         driver.quit();
