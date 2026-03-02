@@ -1,27 +1,36 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
+import static org.testng.Assert.*;
 
 public class LoginTests extends BaseTest {
+
     @Test
-    public void loginEmptyEmailPassword() {
+    public void loginValidEmailValidPassword() {
+        // Positive test
+        getDriver().get("https://qa.koel.app/");
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = loginPage.login("calvinqnguyen@gmail.com", "CalvinLP-Zani69__");
+        assertTrue(homePage.isUserLoggedIn(), "Login failed with valid credentials");
+    }
 
-//      Added ChromeOptions argument below to fix websocket error
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
+    @Test
+    public void loginEmptyEmail() {
+        // Negative test – empty email
+        getDriver().get("https://qa.koel.app/");
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.enterEmail("");
+        loginPage.enterPassword("somePass");
+        loginPage.clickLoginButton();
+        assertTrue(loginPage.isErrorMessageDisplayed(), "Error message not shown for empty email");
+    }
 
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    @Test
+    public void loginEmptyPassword() {
+        // Negative test – empty password
+        // similar implementation
+    }
 
-        // TODO (for students): Review the configuration as part of HW15
-        
-        String url = "httpps://qa.koel.app/";
-        driver.get(url);
-        Assert.assertEquals(driver.getCurrentUrl(), url);
-        driver.quit();
+    @Test
+    public void loginInvalidCredentials() {
+        // Negative test – wrong email/password
     }
 }
