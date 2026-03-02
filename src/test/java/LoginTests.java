@@ -8,7 +8,7 @@ public class LoginTests extends BaseTest {
         // Positive test
         getDriver().get("https://qa.koel.app/");
         LoginPage loginPage = new LoginPage(getDriver());
-        HomePage homePage = loginPage.login("valid@email.com", "validPass");
+        HomePage homePage = loginPage.login("calvinqnguyen@gmail.com", "CalvinLP-Zani69__");
         assertTrue(homePage.isUserLoggedIn(), "Login failed with valid credentials");
     }
 
